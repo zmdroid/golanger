@@ -1,0 +1,8 @@
+{
+	"addr":"localhost:8888",
+	"port":"8888",
+	"dburl":"tcp(10.1.1.56:3306)/golanger?charset=utf8",
+	"dbusername":"root",
+	"dbpwd":"zm12393012998",
+	"cookie_secret": "05e0ba2eca9411e18155109add4b8aac"
+}
