@@ -2,7 +2,7 @@ blog using go programming
 =======
 ##简单的数据库设计
 ###用户表
-<table border="1" width="100">
+<table border="1" width="100%">
 	<tr>
 		<td>用户表</td><td>userinfo</td>
 	</tr>
