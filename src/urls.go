@@ -4,9 +4,14 @@ import "net/http"
 
 var (
 	handlers = map[string]func(http.ResponseWriter, *http.Request){
-		"/":        loginPage,
-		"/login":   loginPage,
-		"/index":   indexPage,
-		"/registe": registePage,
+		"/":           indexPage,
+		"/login":      loginPage,
+		"/index":      indexPage,
+		"/registe":    registePage,
+		"/admin":      adminManagerPage,
+		"/newBlog":    newBlogPage,
+		"/deleteBlog": deleteBlog,
+		"/editBlog":   editBlog,
+		"/page":       blogPage,
 	}
 )

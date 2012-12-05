@@ -3,11 +3,8 @@ package main
 
 import (
 	"code.google.com/p/gorilla/mux"
-	"db"
 	"encoding/json"
-	"fmt"
 	"github.com/gorilla/sessions"
-	"html/template"
 	"log"
 	"net/http"
 	"os"
@@ -46,12 +43,15 @@ func init() {
 func main() {
 
 	http.Handle("/goweb/", http.FileServer(http.Dir("static")))
+	http.Handle("/scripts/", http.FileServer(http.Dir("static")))
+	http.Handle("/content/", http.FileServer(http.Dir("static")))
+	http.Handle("/images/", http.FileServer(http.Dir("static")))
+	http.Handle("/Index.html", http.FileServer(http.Dir("temp")))
 
 	router := mux.NewRouter()
 	for url, handler := range handlers {
 		router.HandleFunc(url, handler)
 	}
-
 	http.Handle("/", router)
 
 	port := config["port"]
@@ -61,29 +61,5 @@ func main() {
 
 	if err != nil {
 		log.Fatal("ListenAndServe:", err.Error())
-	}
-}
-
-func indexPage(w http.ResponseWriter, req *http.Request) {
-	fmt.Println("IndexPage")
-	t, _ := template.ParseFiles("./temp/Index.html")
-	t.Execute(w, nil)
-}
-
-func registePage(w http.ResponseWriter, req *http.Request) {
-	fmt.Println("RegistePage")
-	if req.Method == "GET" {
-		t, _ := template.ParseFiles("./temp/Registe.html")
-		t.Execute(w, nil)
-	} else {
-		req.ParseForm()
-		username := req.FormValue("username")
-		password := req.FormValue("password")
-		cfpwd := req.FormValue("cfpwd")
-		if password == cfpwd {
-			db.InsertUser(username, password)
-			http.Redirect(w, req, "/index", 301)
-		}
-		http.Redirect(w, req, "/registe", 301)
 	}
 }
